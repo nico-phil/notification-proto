@@ -1,0 +1,15 @@
+syntax="proto3";
+
+option go_package="github.com/nico-phil/notifications-proto/notifs";
+
+message SendNotificationsRequest {
+    string text = 1;
+}
+
+message SendNotificationsResponse {
+    bool send = 1;
+}
+
+service Notification {
+    rpc Send(SendNotificationsRequest) returns (SendNotificationsResponse){}
+}
