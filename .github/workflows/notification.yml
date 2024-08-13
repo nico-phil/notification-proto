@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: ["notifs"]
+        service: ["notification"]
     steps:
       - name: Install Go
         uses: actions/setup-go@v4
