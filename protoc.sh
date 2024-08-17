@@ -24,4 +24,4 @@ git push origin HEAD:main
 echo service name: ${SERVICE_NAME}
 echo version: ${RELEASE_VERSION}
 git tag -fa ${RELEASE_VERSION} -m "${RELEASE_VERSION}" 
-git push origin refs/tags/${RELEASE_VERSION}
+git push origin refs/tags/${RELEASE_VERSION} --force
