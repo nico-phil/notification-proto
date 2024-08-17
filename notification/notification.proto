@@ -1,6 +1,6 @@
 syntax="proto3";
 
-option go_package="github.com/nico-phil/notifications-proto/notifs";
+option go_package="github.com/nico-phil/notifications-proto/notification";
 
 message SendPushNotificationsRequest {
     string title = 1;
