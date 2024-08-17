@@ -4,7 +4,7 @@
 // - protoc             v3.12.4
 // source: notification/notification.proto
 
-package notifs
+package notification
 
 import (
 	context "context"
@@ -26,7 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NotificationClient interface {
-	Send(ctx context.Context, in *SendNotificationsRequest, opts ...grpc.CallOption) (*SendNotificationsResponse, error)
+	Send(ctx context.Context, in *SendPushNotificationsRequest, opts ...grpc.CallOption) (*SendPushNotificationsResponse, error)
 }
 
 type notificationClient struct {
@@ -37,9 +37,9 @@ func NewNotificationClient(cc grpc.ClientConnInterface) NotificationClient {
 	return &notificationClient{cc}
 }
 
-func (c *notificationClient) Send(ctx context.Context, in *SendNotificationsRequest, opts ...grpc.CallOption) (*SendNotificationsResponse, error) {
+func (c *notificationClient) Send(ctx context.Context, in *SendPushNotificationsRequest, opts ...grpc.CallOption) (*SendPushNotificationsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SendNotificationsResponse)
+	out := new(SendPushNotificationsResponse)
 	err := c.cc.Invoke(ctx, Notification_Send_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -51,7 +51,7 @@ func (c *notificationClient) Send(ctx context.Context, in *SendNotificationsRequ
 // All implementations must embed UnimplementedNotificationServer
 // for forward compatibility.
 type NotificationServer interface {
-	Send(context.Context, *SendNotificationsRequest) (*SendNotificationsResponse, error)
+	Send(context.Context, *SendPushNotificationsRequest) (*SendPushNotificationsResponse, error)
 	mustEmbedUnimplementedNotificationServer()
 }
 
@@ -62,7 +62,7 @@ type NotificationServer interface {
 // pointer dereference when methods are called.
 type UnimplementedNotificationServer struct{}
 
-func (UnimplementedNotificationServer) Send(context.Context, *SendNotificationsRequest) (*SendNotificationsResponse, error) {
+func (UnimplementedNotificationServer) Send(context.Context, *SendPushNotificationsRequest) (*SendPushNotificationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Send not implemented")
 }
 func (UnimplementedNotificationServer) mustEmbedUnimplementedNotificationServer() {}
@@ -87,7 +87,7 @@ func RegisterNotificationServer(s grpc.ServiceRegistrar, srv NotificationServer)
 }
 
 func _Notification_Send_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SendNotificationsRequest)
+	in := new(SendPushNotificationsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func _Notification_Send_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: Notification_Send_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NotificationServer).Send(ctx, req.(*SendNotificationsRequest))
+		return srv.(NotificationServer).Send(ctx, req.(*SendPushNotificationsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
