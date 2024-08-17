@@ -23,5 +23,5 @@ git add . && git commit -am "proto update" || true
 git push origin HEAD:main
 echo service name: ${SERVICE_NAME}
 echo version: ${RELEASE_VERSION}
-git tag -fa golang/${SERVICE_NAME}/${RELEASE_VERSION} -m "golang/${SERVICE_NAME}/${RELEASE_VERSION}" 
-git push origin refs/tags/golang/${SERVICE_NAME}/${RELEASE_VERSION}
+git tag -fa ${RELEASE_VERSION} -m "${RELEASE_VERSION}" 
+git push origin refs/tags/${RELEASE_VERSION}
