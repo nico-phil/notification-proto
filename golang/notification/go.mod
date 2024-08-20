@@ -1,4 +1,4 @@
-module github.com/nico-phil/notification-proto/golang/notification
+module github.com/nico-phil/notification-proto/golang/notification/v2
 
 go 1.22.2
 
