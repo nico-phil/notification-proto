@@ -6,6 +6,7 @@ message SendNotificationRequest {
     string title = 1;
     string content = 2;
     int64 userId = 3;
+    string notificationType = 4;
 }
 
 message SendNotificationResponse {
