@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Notification_Push_FullMethodName = "/Notification/Push"
+	Notification_Send_FullMethodName = "/Notification/Send"
 )
 
 // NotificationClient is the client API for Notification service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NotificationClient interface {
-	Push(ctx context.Context, in *SendPushNotificationsRequest, opts ...grpc.CallOption) (*SendPushNotificationsResponse, error)
+	Send(ctx context.Context, in *SendNotificationRequest, opts ...grpc.CallOption) (*SendNotificationResponse, error)
 }
 
 type notificationClient struct {
@@ -37,10 +37,10 @@ func NewNotificationClient(cc grpc.ClientConnInterface) NotificationClient {
 	return &notificationClient{cc}
 }
 
-func (c *notificationClient) Push(ctx context.Context, in *SendPushNotificationsRequest, opts ...grpc.CallOption) (*SendPushNotificationsResponse, error) {
+func (c *notificationClient) Send(ctx context.Context, in *SendNotificationRequest, opts ...grpc.CallOption) (*SendNotificationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SendPushNotificationsResponse)
-	err := c.cc.Invoke(ctx, Notification_Push_FullMethodName, in, out, cOpts...)
+	out := new(SendNotificationResponse)
+	err := c.cc.Invoke(ctx, Notification_Send_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *notificationClient) Push(ctx context.Context, in *SendPushNotifications
 // All implementations must embed UnimplementedNotificationServer
 // for forward compatibility.
 type NotificationServer interface {
-	Push(context.Context, *SendPushNotificationsRequest) (*SendPushNotificationsResponse, error)
+	Send(context.Context, *SendNotificationRequest) (*SendNotificationResponse, error)
 	mustEmbedUnimplementedNotificationServer()
 }
 
@@ -62,8 +62,8 @@ type NotificationServer interface {
 // pointer dereference when methods are called.
 type UnimplementedNotificationServer struct{}
 
-func (UnimplementedNotificationServer) Push(context.Context, *SendPushNotificationsRequest) (*SendPushNotificationsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Push not implemented")
+func (UnimplementedNotificationServer) Send(context.Context, *SendNotificationRequest) (*SendNotificationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Send not implemented")
 }
 func (UnimplementedNotificationServer) mustEmbedUnimplementedNotificationServer() {}
 func (UnimplementedNotificationServer) testEmbeddedByValue()                      {}
@@ -86,20 +86,20 @@ func RegisterNotificationServer(s grpc.ServiceRegistrar, srv NotificationServer)
 	s.RegisterService(&Notification_ServiceDesc, srv)
 }
 
-func _Notification_Push_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SendPushNotificationsRequest)
+func _Notification_Send_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendNotificationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NotificationServer).Push(ctx, in)
+		return srv.(NotificationServer).Send(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Notification_Push_FullMethodName,
+		FullMethod: Notification_Send_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NotificationServer).Push(ctx, req.(*SendPushNotificationsRequest))
+		return srv.(NotificationServer).Send(ctx, req.(*SendNotificationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -112,8 +112,8 @@ var Notification_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*NotificationServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Push",
-			Handler:    _Notification_Push_Handler,
+			MethodName: "Send",
+			Handler:    _Notification_Send_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
