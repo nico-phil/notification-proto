@@ -2,16 +2,17 @@ syntax="proto3";
 
 option go_package="github.com/nico-phil/notifications-proto/notification";
 
-message SendPushNotificationsRequest {
+message SendNotificationRequest {
     string title = 1;
     string content = 2;
-    int64 deviceId = 3;
+    int64 userId = 3;
 }
 
-message SendPushNotificationsResponse {
+message SendNotificationResponse {
    bool sent = 1;
 }
 
+
 service Notification {
-    rpc Push(SendPushNotificationsRequest) returns (SendPushNotificationsResponse){}
+    rpc Push(SendNotificationRequest) returns (SendNotificationResponse){}
 }
