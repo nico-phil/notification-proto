@@ -14,5 +14,5 @@ message SendNotificationResponse {
 
 
 service Notification {
-    rpc Push(SendNotificationRequest) returns (SendNotificationResponse){}
+    rpc Send(SendNotificationRequest) returns (SendNotificationResponse){}
 }
