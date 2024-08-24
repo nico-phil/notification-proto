@@ -1,0 +1,36 @@
+syntax="proto3";
+
+option go_package="github.com/nico-phil/notifications-proto/user";
+
+message CreateUserRequest {
+    string firstname = 1;
+    string lastname = 2;
+    string email = 3;
+    string password = 4;
+}
+
+message CreateUserResponse {
+    string firstname = 1;
+    string lastname = 2;
+    string email = 3;
+}
+
+
+message CreateDeviceRequest {
+   string deviceToken = 1;
+   string deviceType = 2;
+   int64 userId = 3;
+}
+
+message CreateDeviceResponse {
+    string deviceToken = 1;
+    string deviceType = 2;
+    int64 userId = 3;
+}
+
+
+service Notification {
+    rpc Create(CreateUserRequest) returns (CreateUserResponse){}
+    rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceResponse){}
+
+}
