@@ -29,7 +29,7 @@ message CreateDeviceResponse {
 }
 
 
-service Notification {
+service User {
     rpc Create(CreateUserRequest) returns (CreateUserResponse){}
     rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceResponse){}
 
