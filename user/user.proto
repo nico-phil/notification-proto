@@ -23,14 +23,24 @@ message CreateDeviceRequest {
 }
 
 message CreateDeviceResponse {
-    string deviceToken = 1;
-    string deviceType = 2;
-    int64 userId = 3;
+    int64 id = 1;
+}
+
+message GetUserDeviceRequest {
+    int64 userId = 1;
+}
+
+message GetUserDeviceResponse{
+    int64 id = 1;
+    string deviceToken = 2;
+    string deviceType = 3;
+    int64 userId = 4;
 }
 
 
 service User {
     rpc Create(CreateUserRequest) returns (CreateUserResponse){}
     rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceResponse){}
+    rpc GetUserDevice(GetUserDeviceRequest) returns(GetUserDeviceResponse){}
 
 }
