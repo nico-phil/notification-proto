@@ -41,6 +41,6 @@ message GetUserDeviceResponse{
 service User {
     rpc Create(CreateUserRequest) returns (CreateUserResponse){}
     rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceResponse){}
-    rpc GetUserDevice(GetUserDeviceRequest) returns(GetUserDeviceResponse){}
+    rpc GetDevice(GetUserDeviceRequest) returns(GetUserDeviceResponse){}
 
 }
