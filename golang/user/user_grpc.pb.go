@@ -19,9 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	User_Create_FullMethodName        = "/User/Create"
-	User_CreateDevice_FullMethodName  = "/User/CreateDevice"
-	User_GetUserDevice_FullMethodName = "/User/GetUserDevice"
+	User_Create_FullMethodName       = "/User/Create"
+	User_CreateDevice_FullMethodName = "/User/CreateDevice"
+	User_GetDevice_FullMethodName    = "/User/GetDevice"
 )
 
 // UserClient is the client API for User service.
@@ -30,7 +30,7 @@ const (
 type UserClient interface {
 	Create(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*CreateDeviceResponse, error)
-	GetUserDevice(ctx context.Context, in *GetUserDeviceRequest, opts ...grpc.CallOption) (*GetUserDeviceResponse, error)
+	GetDevice(ctx context.Context, in *GetUserDeviceRequest, opts ...grpc.CallOption) (*GetUserDeviceResponse, error)
 }
 
 type userClient struct {
@@ -61,10 +61,10 @@ func (c *userClient) CreateDevice(ctx context.Context, in *CreateDeviceRequest, 
 	return out, nil
 }
 
-func (c *userClient) GetUserDevice(ctx context.Context, in *GetUserDeviceRequest, opts ...grpc.CallOption) (*GetUserDeviceResponse, error) {
+func (c *userClient) GetDevice(ctx context.Context, in *GetUserDeviceRequest, opts ...grpc.CallOption) (*GetUserDeviceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetUserDeviceResponse)
-	err := c.cc.Invoke(ctx, User_GetUserDevice_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, User_GetDevice_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (c *userClient) GetUserDevice(ctx context.Context, in *GetUserDeviceRequest
 type UserServer interface {
 	Create(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	CreateDevice(context.Context, *CreateDeviceRequest) (*CreateDeviceResponse, error)
-	GetUserDevice(context.Context, *GetUserDeviceRequest) (*GetUserDeviceResponse, error)
+	GetDevice(context.Context, *GetUserDeviceRequest) (*GetUserDeviceResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -94,8 +94,8 @@ func (UnimplementedUserServer) Create(context.Context, *CreateUserRequest) (*Cre
 func (UnimplementedUserServer) CreateDevice(context.Context, *CreateDeviceRequest) (*CreateDeviceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
 }
-func (UnimplementedUserServer) GetUserDevice(context.Context, *GetUserDeviceRequest) (*GetUserDeviceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserDevice not implemented")
+func (UnimplementedUserServer) GetDevice(context.Context, *GetUserDeviceRequest) (*GetUserDeviceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDevice not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 func (UnimplementedUserServer) testEmbeddedByValue()              {}
@@ -154,20 +154,20 @@ func _User_CreateDevice_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _User_GetUserDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _User_GetDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetUserDeviceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServer).GetUserDevice(ctx, in)
+		return srv.(UserServer).GetDevice(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: User_GetUserDevice_FullMethodName,
+		FullMethod: User_GetDevice_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServer).GetUserDevice(ctx, req.(*GetUserDeviceRequest))
+		return srv.(UserServer).GetDevice(ctx, req.(*GetUserDeviceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -188,8 +188,8 @@ var User_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _User_CreateDevice_Handler,
 		},
 		{
-			MethodName: "GetUserDevice",
-			Handler:    _User_GetUserDevice_Handler,
+			MethodName: "GetDevice",
+			Handler:    _User_GetDevice_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
