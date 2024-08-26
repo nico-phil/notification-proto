@@ -15,6 +15,17 @@ message CreateUserResponse {
     string email = 3;
 }
 
+message GetUserRequest {
+    int64 userId = 1;
+}
+
+message GetUserResponse {
+    string firstname = 1;
+    string lastname = 2;
+    string email = 3;
+}
+
+
 
 message CreateDeviceRequest {
    string deviceToken = 1;
@@ -40,6 +51,7 @@ message GetUserDeviceResponse{
 
 service User {
     rpc Create(CreateUserRequest) returns (CreateUserResponse){}
+    rpc Get(GetUserRequest) returns (GetUserResponse){}
     rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceResponse){}
     rpc GetDevice(GetUserDeviceRequest) returns(GetUserDeviceResponse){}
 
